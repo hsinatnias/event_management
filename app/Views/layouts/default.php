@@ -62,7 +62,8 @@
         </nav>
     </section>
 
-    <div class="content">
+    <div class="container">
+       
         <?= $this->renderSection('content') ?>
     </div>
 

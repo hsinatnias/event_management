@@ -19,3 +19,8 @@ $routes->post('/register', [UserController::class, 'register']);
 
 
 $routes->get('/profile', [ProfileController::class, 'index'], ['filter' => 'auth']);
+$routes->get('/create_profile', [ProfileController::class,'edit_profile_view'], ['filter' => 'auth']);
+
+$routes->post('/create_profile', [ProfileController::class,'create']);
+$routes->get('/edit_profile', [ProfileController::class,'update_profile_view'], ['filter' => 'auth']);
+$routes->patch('/edit_profile', [ProfileController::class,'update']);

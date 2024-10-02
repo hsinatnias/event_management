@@ -10,10 +10,11 @@ class SessionController extends BaseController
     public function set_session($data)
     {
         $session = session();
-        
+        $user_id = $data['user_id'] ?? $data['id'];
         $authData = [
             'username' => $data['username'],
             'email' => $data['email'],
+            'user_id'=> $user_id,
             'isLoggedIn' => true
         ];
 

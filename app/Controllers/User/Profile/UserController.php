@@ -3,6 +3,8 @@
 namespace App\Controllers\User\Profile;
 
 use App\Models\UserModel;
+use App\Models\UserProfileModel;
+use CodeIgniter\Database\RawSql;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Controllers\User\Auth\SessionController;
@@ -40,7 +42,9 @@ class UserController extends BaseController
                 'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
             ];
 
-            $user->save($data);
+            $user_id =  $user->insert($data, true);
+            $data['user_id']= $user_id;
+            
 
             $authSession = new SessionController();
             $authSession->set_session($data);
