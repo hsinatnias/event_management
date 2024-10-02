@@ -10,6 +10,8 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 
+$routes->get('/login', [AuthController::class, 'index']);
+$routes->post('/login', [AuthController::class, 'login']);
 $routes->post('/logout', [AuthController::class, 'logout']);
 
 $routes->get('/register', [UserController::class, 'show_register_form']);
