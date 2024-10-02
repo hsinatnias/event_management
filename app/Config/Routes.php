@@ -1,8 +1,19 @@
 <?php
 
+use App\Controllers\User\Auth\AuthController;
+use App\Controllers\User\Profile\ProfileController;
+use App\Controllers\User\Profile\UserController;
 use CodeIgniter\Router\RouteCollection;
 
 /**
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
+
+$routes->post('/logout', [AuthController::class, 'logout']);
+
+$routes->get('/register', [UserController::class, 'show_register_form']);
+$routes->post('/register', [UserController::class, 'register']);
+
+
+$routes->get('/profile', [ProfileController::class, 'index']);
