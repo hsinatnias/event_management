@@ -10,12 +10,12 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 
-$routes->get('/login', [AuthController::class, 'index']);
+$routes->get('/login', [AuthController::class, 'index'], ['filter' => 'noauth']);
 $routes->post('/login', [AuthController::class, 'login']);
 $routes->post('/logout', [AuthController::class, 'logout']);
 
-$routes->get('/register', [UserController::class, 'show_register_form']);
+$routes->get('/register', [UserController::class, 'show_register_form'], ['filter' => 'noauth']);
 $routes->post('/register', [UserController::class, 'register']);
 
 
-$routes->get('/profile', [ProfileController::class, 'index']);
+$routes->get('/profile', [ProfileController::class, 'index'], ['filter' => 'auth']);
