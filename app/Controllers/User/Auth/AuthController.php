@@ -23,6 +23,13 @@ class AuthController extends BaseController
     {
 
     }
+    public function logout()
+    {
+        $session = new SessionController();
+        $session->remove_session();
+
+        return redirect()->route("/");
+    }
 
 
 }

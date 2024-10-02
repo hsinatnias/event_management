@@ -6,6 +6,14 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        return view('home');
+        $session = session();
+
+        $data = [
+            'name' => $session->get('name'),
+            'email' => $session->get('email'),
+            'authorised' => $session->get('isLoggedIn'),
+        ];
+
+        return view('home', $data);
     }
 }

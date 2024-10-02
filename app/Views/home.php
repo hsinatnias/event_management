@@ -12,7 +12,7 @@
 
     <?php else : ?>
 
-    <h3>Welcome to Code Project</h3>
+    <h3>Event Management V 1.0.0</h3>
 
     <?php endif ?>
 
