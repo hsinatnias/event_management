@@ -2,53 +2,48 @@
 
 <?= $this->section('content') ?>
 
-<div class="columns is-mobile is-centered">
-    <div class="column is-narrow">
-        <form class="box" action="<?=  url_to('create_profile') ?>" method="post">
+<main class="form-signin w-100 m-auto">
+    <div class="row justify-content-md-center">
+        <div class="col-3">
 
-            <h3 class="has-text-centered">Edit User Profile <?= session()->get('username') ?></h3>
+            <form class="row" action="<?= url_to('create_profile') ?>" method="post">
 
-            <div class="field">
-                <label class="label">First Name</label>
-                <div class="control">
-                    <input class="input" type="text" name="firstname" placeholder="firstname"
+                <h3 class="has-text-centered">Edit User Profile <?= session()->get('username') ?></h3>
+
+                <div class="col-12">
+                    <label for="firstname" class="form-label">First Name</label>
+                    <input class="form-control" type="text" name="firstname" placeholder="firstname"
                         value="<?= set_value('firstname') ?>" autofocus>
                 </div>
-            </div>
-            <div class="field">
-                <label class="label">Last Name</label>
-                <div class="control">
-                    <input class="input" type="text" name="lastname" placeholder="lastname"
+                <div class="col-12">
+                    <label for="lastname" class="form-label">Last Name</label>
+                    <input class="form-control" type="text" name="lastname" placeholder="lastname"
                         value="<?= set_value('lastname') ?>" autofocus>
                 </div>
-            </div>
 
-            <div class="field">
-                <label class="label">Phone</label>
-                <div class="control">
-                    <input class="input" type="tel" name="phone_number" placeholder="phone_number"
+                <div class="col-12">
+                    <label for="phone_number" class="form-label">Phone</label>
+                    <input class="form-control" type="tel" name="phone_number" placeholder="phone_number"
                         value="<?= set_value('phone_number') ?>" autofocus>
                 </div>
-            </div>
 
-            
-
-            <div class="field is-grouped">
-                <div class="control">
-                    <button class="button is-link">Save Details</button>
+                <div class="col-12 mt-3">
+                    <button type="submit" class="btn btn-primary">Save profile</button>
                 </div>
-            </div>
-
-        </form>
-
-        <?php if (isset($validation)): ?>
-            <div class="notification is-danger">
-                <?= $validation->listErrors() ?>
-            </div>
-        <?php endif; ?>
 
 
+
+            </form>
+
+            <?php if (isset($validation)): ?>
+                <div class="alert alert-warning" role="alert">
+
+                    <?= $validation->listErrors() ?>
+                </div>
+            <?php endif; ?>
+
+
+        </div>
     </div>
-</div>
 
-<?= $this->endSection() ?>
+    <?= $this->endSection() ?>

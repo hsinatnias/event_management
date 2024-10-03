@@ -18,6 +18,7 @@ class UserController extends BaseController
 
     public function show_register_form()
     {
+        helper(['form']);
         return view("user/profile/register");
     }
 

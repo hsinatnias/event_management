@@ -6,57 +6,56 @@
 
 <?= $this->section('content') ?>
 
-<div class="columns is-mobile is-centered">
-    <div class="column is-narrow">
-        <form class="box" action="<?= url_to('register') ?>" method="post">
+<main class="form-signin w-100 m-auto">
+    <div class="row justify-content-md-center">
+        <div class="col-3">
+            <form class="row" action="<?= url_to('register') ?>" method="post">
 
-            <h3 class="has-text-centered">Register User</h3>
 
-            <div class="field">
-                <label class="label">User Name</label>
-                <div class="control">
-                    <input class="input" type="text" name="username" placeholder="username" value="<?= set_value('username') ?>"  autofocus>
+
+                <div class="col-12">
+                    <label for="username" class="form-label">User Name</label>
+                    <input class="form-control" type="text" name="username" placeholder="username"
+                        value="<?= set_value('username') ?>" autofocus>
                 </div>
-            </div>
 
-            <div class="field">
-                <label class="label">Email</label>
-                <div class="control">
-                    <input class="input" type="text" name="email" placeholder="Email" value="<?= set_value('email') ?>"  >
+                <div class="col-12">
+                    <label for="email" class="form-label">Email</label>
+                    <input class="form-control" type="text" name="email" placeholder="Email"
+                        value="<?= set_value('email') ?>">
                 </div>
-            </div>
 
-            <div class="field">
-                <label class="label">Password</label>
-                <div class="control">
-                    <input class="input" type="password" name="password" placeholder="Password">
+                <div class="col-12">
+                    <label for="password" class="form-label">Password</label>
+                    <input class="form-control" type="password" name="password" placeholder="Password">
                 </div>
-            </div>
 
-            <div class="field">
-                <label class="label">Password</label>
-                <div class="control">
-                    <input class="input" type="password" name="confirmpassword" placeholder="Confirm Password">
+                <div class="col-12">
+                    <label for="confirmpassword" class="form-label">Password</label>
+                    <input class="form-control" type="password" name="confirmpassword" placeholder="Confirm Password">
                 </div>
-            </div>
 
-            <div class="field is-grouped">
-                <div class="control">
-                    <button class="button is-link">Sign Up</button>
+                <div class="col-12 mt-3">
+                    <button type="submit" class="btn btn-primary">Sign up</button>
                 </div>
-            </div>
 
-        </form>
-
-        <?php if(isset($validation)):?>
-        <div class="notification is-danger">
-            <?= $validation->listErrors() ?>
+            </form>
         </div>
-        <?php endif;?>
-
-
     </div>
-</div>
+
+
+</main>
+
+
+
+<?php if (isset($validation)): ?>
+    <div class="notification is-danger">
+        <?= $validation->listErrors() ?>
+    </div>
+<?php endif; ?>
+
+
+
 
 <?= $this->endSection() ?>
 

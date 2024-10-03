@@ -21,7 +21,7 @@ class ProfileController extends BaseController
 
         $userProfileModel = new UserProfileModel();
 
-        $userDetails = $userProfileModel->first(["user_id" => session()->get("user_id")]);
+        $userDetails = $userProfileModel->where("user_id", session()->get("user_id"))->first();
 
         if (!$userDetails) {
             helper(['form']);
