@@ -1,77 +1,41 @@
 <?= $this->extend('layouts/default') ?>
 
 <?= $this->section('content') ?>
-
-<section class="section">
-    <div class="columns">
-        <div class="column is-narrow is-mobile">
-            <?= $this->include('partials/side_menu') ?>
-        </div>
-        <div class="column">
-            <div class="card">
-                <div class="card-content">
-                    <h3 class="title is-4">Profile</h3>
-
-                    <div class="content">
-                        <div class="columns">
-                            <div class="column">
-                                <table class="table-profile">
-                                    <tbody>
-                                        <tr>
-                                            <th colspan="1"></th>
-                                            <th colspan="2"></th>
-                                        </tr>
-                                        <tr>
-                                            <td>First name:</td>
-                                            <td><?= $result->firstname ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Last Name:</td>
-                                            <td><?= $result->lastname ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Phone:</td>
-                                            <td><?= $result->phone_number ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email:</td>
-                                            <td><?= $result->email ?></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <br>
-                                <div class="buttons has-addons">
-                                    <a href="/edit_profile" class="button is-link">Edit Profile</a>
-                                    <a href="#" class="button is-link">Password Reset</a>
-                                    <a href="#" class="button is-link">Delete Profile</a>
-
-                                </div>
-                            </div>
-                            <div class="column">
-                                <table class="table-profile">
-                                    <tbody>
-                                        <tr>
-                                            <th colspan="1"></th>
-                                            <th colspan="2"></th>
-                                        </tr>
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+<div class="row">
+    <div class="col-md-3">
+        <?= $this->include('partials/side_menu') ?>
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-3">
+            <img src="https://github.com/mdo.png" alt="mdo"  class="img-thumbnail">
+            </div>
+            <div class="col-md-9">
 
 
+                <div class="card" >
+                    <div class="card-body">
+                        <h5 class="card-title"><?= $result->firstname." ". $result->lastname  ?></h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary"><?= $result->email ?></h6>
+                        <p class="card-text">Phone: <?= $result->phone_number ?></p>
+                        <p class="card-text">Phone: <?= $result->phone_number ?></p>
+                        <p class="card-text">Phone: <?= $result->phone_number ?></p>
+                        <a href="#" class="card-link">Edit Profile</a>
+                        <a href="#" class="link-danger px-3">Delete Profile</a>
                     </div>
-
-
                 </div>
+                
+
+
             </div>
         </div>
     </div>
+</div>
 
 
 
-    
-</section>
+
+
+
 
 <?= $this->endSection() ?>

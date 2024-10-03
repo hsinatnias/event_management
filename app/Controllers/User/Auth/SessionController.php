@@ -23,8 +23,9 @@ class SessionController extends BaseController
 
     public function remove_session()
     {
-        $session = session();
-        $authData = ['isLoggedIn'=> false];
-        $session->set($authData);
+        session()->destroy();
+        // $session = session();
+        // $authData = ['isLoggedIn'=> false];
+        // $session->set($authData);
     }
 }
