@@ -15,14 +15,14 @@
             <div class="field">
                 <label class="label">User Name</label>
                 <div class="control">
-                    <input class="input" type="text" name="username" placeholder="username" value="<?= old('username') ?>"  autofocus>
+                    <input class="input" type="text" name="username" placeholder="username" value="<?= set_value('username') ?>"  autofocus>
                 </div>
             </div>
 
             <div class="field">
                 <label class="label">Email</label>
                 <div class="control">
-                    <input class="input" type="text" name="email" placeholder="Email" value="<?= old('email') ?>"  >
+                    <input class="input" type="text" name="email" placeholder="Email" value="<?= set_value('email') ?>"  >
                 </div>
             </div>
 
