@@ -5,7 +5,7 @@
 <main class="form-signin w-100 m-auto">
     <div class="row justify-content-md-center">
         <div class="col-3">
-            <form class="row" action="<?= url_to('edit_profile') ?>" method="post">
+            <form class="row" action="<?= url_to('edit-profile') ?>" method="post">
 
                 <input type="hidden" name="_method" value="PATCH">
 
@@ -53,7 +53,7 @@
 
 
                 <div class="col-12 mt-3">
-                    <button class="button is-link">Update Profile</button>
+                    <button class="btn btn-primary">Update Profile</button>
                 </div>
 
             </form>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\User\Auth\AuthController;
+use App\Controllers\User\Event\EventController;
 use App\Controllers\User\Profile\ProfileController;
 use App\Controllers\User\Profile\UserController;
 use CodeIgniter\Router\RouteCollection;
@@ -19,8 +20,18 @@ $routes->post('/register', [UserController::class, 'register']);
 
 
 $routes->get('/profile', [ProfileController::class, 'index'], ['filter' => 'auth']);
-$routes->get('/create_profile', [ProfileController::class,'edit_profile_view'], ['filter' => 'auth']);
+$routes->get('/create-profile', [ProfileController::class,'edit_profile_view'], ['filter' => 'auth']);
 
-$routes->post('/create_profile', [ProfileController::class,'create']);
-$routes->get('/edit_profile', [ProfileController::class,'update_profile_view'], ['filter' => 'auth']);
-$routes->patch('/edit_profile', [ProfileController::class,'update']);
+$routes->post('/create-profile', [ProfileController::class,'create']);
+$routes->get('/edit-profile', [ProfileController::class,'update_profile_view'], ['filter' => 'auth']);
+$routes->patch('/edit-profile', [ProfileController::class,'update']);
+
+
+//events
+$routes->get('/events', [EventController::class, 'index'], ['filter' => 'auth']);
+$routes->get('/events/(:num)', [EventController::class, 'show/$1'], ['filter' => 'auth']);
+$routes->get('/event/create', [EventController::class,'new'],  ['as'=>'create-event', 'filter' => 'auth']);
+$routes->post('/event/create', [EventController::class,'create']);
+$routes->get('/event/edit/(:num)', [EventController::class, 'edit/$1'], ['filter' => 'auth']);
+$routes->put('/event/update', [EventController::class, 'update']);
+$routes->delete('/event/delete/(:num)', [EventController::class, 'delete/$1']);

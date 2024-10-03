@@ -1,44 +1,68 @@
 <?= $this->extend('layouts/default') ?>
 
 <?= $this->section('content') ?>
+<style>
 
-<div class="columns is-mobile is-centered">
-    <div class="column is-narrow">
-        <form class="box" action="<?= url_to('login') ?>" method="post">
 
-            <h3 class="has-text-centered">Login Form</h3>
+.form-signin {
+  max-width: 330px;
+  padding: 1rem;
+}
 
-            <div class="field">
-                <label class="label">Email</label>
-                <div class="control">
-                    <input class="input" type="text" name="email" placeholder="Email"
-                        value="<?= old('email') ?>">
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+</style>
+<div class="form-signin w-100 m-auto">
+    
+            <form action="<?= url_to('login') ?>" method="post">
+
+                <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="floatingInput" name="email"
+                        placeholder="name@example.com">
+                    <label for="floatingInput">Email address</label>
                 </div>
-            </div>
-
-            <div class="field">
-                <label class="label">Password</label>
-                <div class="control">
-                    <input class="input" type="password" name="password" placeholder="Password"
-                        value="<?= old('password') ?>">
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="floatingPassword" name="password"
+                        placeholder="Password">
+                    <label for="floatingPassword">Password</label>
                 </div>
-            </div>
 
-            <div class="field is-grouped">
-                <div class="control">
-                    <button class="button is-link">Sign in</button>
-                </div>
-            </div>
+                <!-- <div class="form-check text-start my-3">
+     <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+     <label class="form-check-label" for="flexCheckDefault">
+       Remember me
+     </label>
+   </div> -->
+                <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+                <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
 
-            <?php if(session()->getFlashdata('msg')):?>
-            <div class="notification is-danger">
-                <?= session()->getFlashdata('msg') ?>
-            </div>
-            <?php endif;?>
+                <?php if (session()->getFlashdata('msg')): ?>
+                    <div class="notification is-danger">
+                        <?= session()->getFlashdata('msg') ?>
+                    </div>
+                <?php endif; ?>
+            </form>
+       
 
-        </form>
 
-    </div>
+
+
 </div>
 
 <?= $this->endSection() ?>

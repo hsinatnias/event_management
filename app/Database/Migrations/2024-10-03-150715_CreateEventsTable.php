@@ -5,7 +5,7 @@ namespace App\Database\Migrations;
 use CodeIgniter\Database\RawSql;
 use CodeIgniter\Database\Migration;
 
-class CreateEventTable extends Migration
+class CreateEventsTable extends Migration
 {
     public function up()
     {
@@ -32,18 +32,22 @@ class CreateEventTable extends Migration
             ],
             "location_id" =>[
                 "type" => "INT",
+                "constraint" => 5,
                 "unsigned"=> true,
             ],
             'created_by' => [
                 'type'    => 'INT', 
+                'constraint'     => 5,
                 "unsigned"=> true,
             ],
             'status' => [
                 'type'    => 'ENUM', 
                 "constraint"=> ["draft", "active", "completed"],
+                "default" => "draft"
             ],
             'created_at' => [
                 "type"=> "DATETIME", 
+                'default' => new RawSql('CURRENT_TIMESTAMP')
             ],
             'updated_at' => [
                 "type"=> "DATETIME", 
@@ -52,8 +56,9 @@ class CreateEventTable extends Migration
         ]);
 
         $this->forge->addKey("id", true);
+        $this->forge->addForeignKey("location_id", "locations","id","CASCADE");
         $this->forge->addForeignKey("created_by", "users","id","CASCADE");
-        $this->forge->addForeignKey("location_id", "location","id","CASCADE");
+        
         $this->forge->createTable('events');
     }
 

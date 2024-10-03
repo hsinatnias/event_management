@@ -20,7 +20,7 @@
                         <p class="card-text">Phone: <?= $result->phone_number ?></p>
                         <p class="card-text">Phone: <?= $result->phone_number ?></p>
                         <p class="card-text">Phone: <?= $result->phone_number ?></p>
-                        <a href="#" class="card-link">Edit Profile</a>
+                        <a href="/edit-profile" class="card-link">Edit Profile</a>
                         <a href="#" class="link-danger px-3">Delete Profile</a>
                     </div>
                 </div>
