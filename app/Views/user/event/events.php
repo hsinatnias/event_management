@@ -4,10 +4,14 @@
 <?php if (!empty($events)): ?>
 
     <?php foreach ($events as $event): ?>
-       <?=  $event['event_name'] ?>
+        <?= $event['event_name'] ?>
     <?php endforeach ?>
 
 <?php else: ?>
-    <a href="<?= url_to('create-event')?>">Create Event</a> 
+
+    <div class="alert alert-warning" role="alert">
+        No events found <a href="<?= url_to('create-event') ?>" class="alert-link">Create one</a>!
+    </div>
+    
 <?php endif ?>
 <?= $this->endSection() ?>

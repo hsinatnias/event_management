@@ -30,10 +30,36 @@ class CreateEventsTable extends Migration
             "end_date"=>[
                 "type"=> "DATETIME",
             ],
-            "location_id" =>[
+            "location_address1" =>[
+                "type" => "VARCHAR",
+                "constraint" => 100,
+            ],
+            "location_address2" =>[
+                "type" => "VARCHAR",
+                "constraint" => 100,
+                "null" => true
+            ],
+            "location_street" =>[
+                "type" => "VARCHAR",
+                "constraint" => 100,
+                "null"=> true
+            ],
+            "location_city" =>[
+                "type" => "VARCHAR",
+                "constraint" => 50,
+                "null"=> true
+            ],
+            "location_state" =>[
+                "type" => "VARCHAR",
+                "constraint" => 50,
+            ],
+            "location_country" =>[
+                "type" => "VARCHAR",
+                "constraint" => 50,
+            ],
+            "location_zip" =>[
                 "type" => "INT",
-                "constraint" => 5,
-                "unsigned"=> true,
+                "constraint" => 10,
             ],
             'created_by' => [
                 'type'    => 'INT', 
@@ -55,8 +81,7 @@ class CreateEventsTable extends Migration
 
         ]);
 
-        $this->forge->addKey("id", true);
-        $this->forge->addForeignKey("location_id", "locations","id","CASCADE");
+        $this->forge->addKey("id", true);        
         $this->forge->addForeignKey("created_by", "users","id","CASCADE");
         
         $this->forge->createTable('events');
