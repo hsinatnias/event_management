@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateLocationsTable extends Migration
+class CreateLocationTable extends Migration
 {
     public function up()
     {

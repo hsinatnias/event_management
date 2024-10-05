@@ -5,7 +5,7 @@ namespace App\Database\Migrations;
 use CodeIgniter\Database\RawSql;
 use CodeIgniter\Database\Migration;
 
-class CreateEventTable extends Migration
+class CreateEventsTable extends Migration
 {
     public function up()
     {
@@ -30,20 +30,50 @@ class CreateEventTable extends Migration
             "end_date"=>[
                 "type"=> "DATETIME",
             ],
-            "location_id" =>[
+            "location_address1" =>[
+                "type" => "VARCHAR",
+                "constraint" => 100,
+            ],
+            "location_address2" =>[
+                "type" => "VARCHAR",
+                "constraint" => 100,
+                "null" => true
+            ],
+            "location_street" =>[
+                "type" => "VARCHAR",
+                "constraint" => 100,
+                "null"=> true
+            ],
+            "location_city" =>[
+                "type" => "VARCHAR",
+                "constraint" => 50,
+                "null"=> true
+            ],
+            "location_state" =>[
+                "type" => "VARCHAR",
+                "constraint" => 50,
+            ],
+            "location_country" =>[
+                "type" => "VARCHAR",
+                "constraint" => 50,
+            ],
+            "location_zip" =>[
                 "type" => "INT",
-                "unsigned"=> true,
+                "constraint" => 10,
             ],
             'created_by' => [
                 'type'    => 'INT', 
+                'constraint'     => 5,
                 "unsigned"=> true,
             ],
             'status' => [
                 'type'    => 'ENUM', 
                 "constraint"=> ["draft", "active", "completed"],
+                "default" => "draft"
             ],
             'created_at' => [
                 "type"=> "DATETIME", 
+                'default' => new RawSql('CURRENT_TIMESTAMP')
             ],
             'updated_at' => [
                 "type"=> "DATETIME", 
@@ -51,9 +81,9 @@ class CreateEventTable extends Migration
 
         ]);
 
-        $this->forge->addKey("id", true);
+        $this->forge->addKey("id", true);        
         $this->forge->addForeignKey("created_by", "users","id","CASCADE");
-        $this->forge->addForeignKey("location_id", "location","id","CASCADE");
+        
         $this->forge->createTable('events');
     }
 

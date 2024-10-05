@@ -28,10 +28,10 @@ class UserController extends BaseController
         helper(['form']);
 
         $rules = [
-            'username' => 'required|min_length[2]|max_length[50]',
-            'email' => 'required|min_length[4]|max_length[100]|valid_email|is_unique[users.email]',
-            'password' => 'required|min_length[4]|max_length[50]',
-            'confirmpassword' => 'matches[password]'
+            'username'          => 'required|min_length[2]|max_length[50]|alpha_numeric_punct',
+            'email'             => 'required|min_length[4]|max_length[100]|valid_email|is_unique[users.email]',
+            'password'          => 'required|min_length[4]|max_length[50]',
+            'confirmpassword'   => 'matches[password]'
         ];
 
         if ($this->validate($rules)) {

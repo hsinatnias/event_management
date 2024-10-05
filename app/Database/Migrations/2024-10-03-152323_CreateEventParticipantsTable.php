@@ -2,6 +2,7 @@
 
 namespace App\Database\Migrations;
 
+use CodeIgniter\Database\RawSql;
 use CodeIgniter\Database\Migration;
 
 class CreateEventParticipantsTable extends Migration
@@ -17,9 +18,11 @@ class CreateEventParticipantsTable extends Migration
             ],
             "event_id" => [
                 "type" => "INT",
+                "unsigned" => true,
             ],
             "user_id" => [
                 "type" => "INT",
+                "unsigned" => true,
             ],
             "status" => [
                 'type' => 'ENUM',

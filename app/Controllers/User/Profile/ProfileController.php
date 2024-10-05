@@ -25,7 +25,7 @@ class ProfileController extends BaseController
 
         if (!$userDetails) {
             helper(['form']);
-            return redirect()->to("/create_profile");
+            return redirect()->to("/create-profile");
         }
         
         $builder = $this->db->table("users");
