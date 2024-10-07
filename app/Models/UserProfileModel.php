@@ -18,6 +18,7 @@ class UserProfileModel extends Model
         'lastname',
         'status',
         'phone_number',
+        'uploaded_fileinfo',
         'loginTime',
         'created_at',
     ];

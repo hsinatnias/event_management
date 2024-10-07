@@ -3,6 +3,7 @@
 namespace App\Controllers\User\Profile;
 
 use App\Models\UserModel;
+use CodeIgniter\Files\File;
 use App\Models\UserProfileModel;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -66,25 +67,36 @@ class ProfileController extends BaseController
             'firstname' => 'required|min_length[2]|max_length[50]',
             'lastname' => 'required|min_length[2]|max_length[50]',            
             'phone_number' => 'required|regex_match[/^[0-9]{10}$/]',
+            'uploaded_fileinfo' => 'uploaded[uploaded_fileinfo]|is_image[uploaded_fileinfo]|mime_in[uploaded_fileinfo,image/jpg,image/jpeg,image/gif,image/png,image/webp]|max_size[uploaded_fileinfo,100]|max_dims[uploaded_fileinfo,1024,768]',
         ];
 
         if ($this->validate($rules)) {
+            
+            $img = $this->request->getFile('uploaded_fileinfo');
+            
+            if (! $img->hasMoved()) {
+                $filepath = WRITEPATH . 'uploads/' . $img->store("profile_images", session()->get('username').".".$img->getExtension());
+    
+                $fileInfo = new File($filepath);
+                $file_path  = 'profile_images/'.$fileInfo->getFilename();
+            }
 
-
+            
             $data = [
                 'user_id' => session()->get('user_id'),
                 'firstname' => $this->request->getVar('firstname'),
                 'lastname' => $this->request->getVar('lastname'),
                 'phone_number' => $this->request->getVar('phone_number'),
+                'uploaded_fileinfo' => $file_path
             ];
-
+            
             $user->where('user_id', session()->get('user_id'))->insert($data);
 
 
             return redirect()->to('/profile');
         } else {
             $data['validation'] = $this->validator;
-            echo view('user/profile/register', $data);
+            echo view('user/profile/user_profile_edit', $data);
         }
     }
     public function update()
@@ -95,16 +107,29 @@ class ProfileController extends BaseController
             'lastname' => 'required|min_length[2]|max_length[50]',
             'phone_number' => 'required|regex_match[/^[0-9]{10}$/]',
             'email' => 'required|min_length[4]|max_length[100]|valid_email|is_unique[users.email]',
+            'uploaded_fileinfo' => 'uploaded[uploaded_fileinfo]|is_image[uploaded_fileinfo]|mime_in[uploaded_fileinfo,image/jpg,image/jpeg,image/gif,image/png,image/webp]|max_size[uploaded_fileinfo,100]|max_dims[uploaded_fileinfo,1024,768]',
         ];
 
+        
         if ($this->validate($rules)) {
             $user = new UserProfileModel();
+
+            $img = $this->request->getFile('uploaded_fileinfo');
+            if (! $img->hasMoved()) {
+                $filepath = WRITEPATH . 'uploads/' . $img->store("profile_images", session()->get('username').".".$img->getExtension());
+    
+                $fileInfo = new File($filepath);
+                $file_path  = 'profile_images/'.$fileInfo->getFilename();
+                
+            }
 
             $data = [
                 
                 'firstname' => $this->request->getVar('firstname'),
                 'lastname' => $this->request->getVar('lastname'),
                 'phone_number' => $this->request->getVar('phone_number'),
+                'uploaded_fileinfo' => $file_path
+                
             ];
             $email = $this->request->getVar('email');
             // $user->where('user_id', session()->get('user_id'))->update($data);

@@ -33,5 +33,13 @@ $routes->get('/events/(:num)', [EventController::class, 'show/$1'], ['filter' =>
 $routes->get('/event/create', [EventController::class,'new'],  ['as'=>'create-event', 'filter' => 'auth']);
 $routes->post('/event/create', [EventController::class,'create']);
 $routes->get('/event/edit/(:num)', [EventController::class, 'edit/$1'], ['filter' => 'auth']);
+<<<<<<< HEAD
 $routes->put('/event/update/(:num)', [EventController::class, 'update/$1']);
 $routes->get('/event/delete/(:num)', [EventController::class, 'delete/$1']);
+=======
+$routes->put('/event/update', [EventController::class, 'update']);
+$routes->delete('/event/delete/(:num)', [EventController::class, 'delete/$1']);
+
+
+$routes->get('images/showImage/(:any)', 'UtilityController::showuserprofileimage/$1');
+>>>>>>> e7bcedfd5c3dc8d192177b9852a63c7c6623a17a

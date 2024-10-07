@@ -6,7 +6,7 @@
     <div class="row justify-content-md-center">
         <div class="col-3">
 
-            <form class="row" action="<?= url_to('create-profile') ?>" method="post">
+            <form class="row" action="<?= url_to('create-profile') ?>" method="post" enctype="multipart/form-data">
 
                 <h3 class="has-text-centered">Edit User Profile <?= session()->get('username') ?></h3>
 
@@ -25,6 +25,11 @@
                     <label for="phone_number" class="form-label">Phone</label>
                     <input class="form-control" type="tel" name="phone_number" placeholder="phone_number"
                         value="<?= set_value('phone_number') ?>" autofocus>
+                </div>
+
+                <div class="col-12">
+                    <label for="uploaded_fileinfo" class="form-label">Select profile photo</label>
+                    <input class="form-control form-control-lg" id="uploaded_fileinfo" name="uploaded_fileinfo" type="file">
                 </div>
 
                 <div class="col-12 mt-3">
