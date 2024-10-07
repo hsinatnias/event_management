@@ -33,5 +33,5 @@ $routes->get('/events/(:num)', [EventController::class, 'show/$1'], ['filter' =>
 $routes->get('/event/create', [EventController::class,'new'],  ['as'=>'create-event', 'filter' => 'auth']);
 $routes->post('/event/create', [EventController::class,'create']);
 $routes->get('/event/edit/(:num)', [EventController::class, 'edit/$1'], ['filter' => 'auth']);
-$routes->put('/event/update', [EventController::class, 'update']);
-$routes->delete('/event/delete/(:num)', [EventController::class, 'delete/$1']);
+$routes->put('/event/update/(:num)', [EventController::class, 'update/$1']);
+$routes->get('/event/delete/(:num)', [EventController::class, 'delete/$1']);

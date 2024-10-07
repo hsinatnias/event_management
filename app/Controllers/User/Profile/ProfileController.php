@@ -30,8 +30,8 @@ class ProfileController extends BaseController
         
         $builder = $this->db->table("users");
         $builder->select("*")                
-                ->join('userprofiles', 'userprofiles.user_id = users.id')
-                ->where('users.id', session()->get('user_id'));
+                ->join('userprofiles', 'userprofiles.user_id = users.user_id')
+                ->where('users.user_id', session()->get('user_id'));
         $query = $builder->get();
         $data['result'] = $query->getFirstRow();
         

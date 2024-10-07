@@ -9,6 +9,9 @@
     <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
     <link href="<?= base_url('bootstrap/css/bootstrap.css') ?>" rel="stylesheet">
     <link href="<?= base_url('css/style.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('jquery-ui-1.14.0/jquery-ui.css') ?>" rel="stylesheet">
+    <script src="<?= base_url('js/jquery-3.7.1.min.js') ?>"></script>
+    <script src="<?= base_url('jquery-ui-1.14.0/jquery-ui.js') ?>"></script>
     <script src="<?= base_url('bootstrap/js/popper.min.js') ?>"></script>
     <script src="<?= base_url('bootstrap/js/bootstrap.min.js') ?>" ></script>
     

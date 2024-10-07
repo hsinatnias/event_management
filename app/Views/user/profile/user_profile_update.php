@@ -11,8 +11,8 @@
 
                 <h3 class="has-text-centered">Edit User Profile <?= session()->get('username') ?></h3>
 
-                <div for="firstname" class="col-12">
-                    <label class="form-label">First Name</label>
+                <div  class="col-12">
+                    <label for="firstname" class="form-label">First Name</label>
 
                     <input class="form-control" type="text" name="firstname" placeholder="firstname" value="<?php if (set_value('firstname'))
                         echo set_value('firstname');

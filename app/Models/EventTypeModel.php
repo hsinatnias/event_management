@@ -4,22 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UserProfileModel extends Model
+class EventTypeModel extends Model
 {
-    protected $table            = 'userprofiles';
-    protected $primaryKey       = 'userprofile_id';
+    protected $table            = 'event_types';
+    protected $primaryKey       = 'event_type_id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'user_id',
-        'firstname',
-        'lastname',
-        'status',
-        'phone_number',
-        'loginTime',
-        'created_at',
+        'event_type'
     ];
 
     protected bool $allowEmptyInserts = false;

@@ -11,7 +11,7 @@ class CreateUserProfileTable extends Migration
     {
         $this->forge->addField([
 
-            "id"=> [
+            "userprofile_id"=> [
                 "type"=> "INT",
                 "constraint"=> 5,
                 "unsigned"=> true,
@@ -45,8 +45,8 @@ class CreateUserProfileTable extends Migration
 
         ]);
 
-        $this->forge->addKey("id", true);
-        $this->forge->addForeignKey("user_id", "users","id","CASCADE");
+        $this->forge->addKey("userprofile_id", true);
+        $this->forge->addForeignKey("user_id", "users","user_id","CASCADE");
         $this->forge->createTable('userprofiles');
     }
 

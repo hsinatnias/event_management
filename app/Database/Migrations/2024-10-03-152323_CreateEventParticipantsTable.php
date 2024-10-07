@@ -10,18 +10,20 @@ class CreateEventParticipantsTable extends Migration
     public function up()
     {
         $this->forge->addField([
-            "id" => [
+            "event_participant_id" => [
                 "type" => "INT",
                 "constraint" => 5,
                 "unsigned" => true,
                 "auto_increment" => true
             ],
-            "event_id" => [
+            "event_f_id" => [
                 "type" => "INT",
+                "constraint" => 5,
                 "unsigned" => true,
             ],
-            "user_id" => [
+            "user_f_id" => [
                 "type" => "INT",
+                "constraint" => 5,
                 "unsigned" => true,
             ],
             "status" => [
@@ -31,9 +33,9 @@ class CreateEventParticipantsTable extends Migration
 
         ]);
 
-        $this->forge->addKey("id", true);
-        $this->forge->addForeignKey("event_id", "events", "id", "CASCADE");
-        $this->forge->addForeignKey("user_id", "users", "id", "CASCADE");
+        $this->forge->addKey("event_participant_id", true);
+        $this->forge->addForeignKey("event_f_id", "events", "event_id", "CASCADE", "CASCADE");
+        $this->forge->addForeignKey("user_f_id", "users", "user_id", "CASCADE", "CASCADE");
         $this->forge->createTable('event_participants');
     }
 

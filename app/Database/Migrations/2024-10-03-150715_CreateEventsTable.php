@@ -11,7 +11,7 @@ class CreateEventsTable extends Migration
     {
         $this->forge->addField([
 
-            "id"=> [
+            "event_id"=> [
                 "type"=> "INT",
                 "constraint"=> 5,
                 "unsigned"=> true,
@@ -60,6 +60,7 @@ class CreateEventsTable extends Migration
             "location_zip" =>[
                 "type" => "INT",
                 "constraint" => 10,
+                "null"=> true,
             ],
             'created_by' => [
                 'type'    => 'INT', 
@@ -78,11 +79,18 @@ class CreateEventsTable extends Migration
             'updated_at' => [
                 "type"=> "DATETIME", 
             ],
+            'event_type_id' =>[
+                "type" => "INT",
+                'constraint'     => 5,
+                "unsigned"=> true,
+
+            ]
 
         ]);
 
-        $this->forge->addKey("id", true);        
-        $this->forge->addForeignKey("created_by", "users","id","CASCADE");
+        $this->forge->addKey("event_id", true);        
+        $this->forge->addForeignKey("created_by", "users","user_id","CASCADE");
+        $this->forge->addForeignKey("event_type_id", "event_types","event_type_id");
         
         $this->forge->createTable('events');
     }

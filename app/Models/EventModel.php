@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class EventModel extends Model
 {
     protected $table            = 'events';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'event_id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
@@ -17,11 +17,17 @@ class EventModel extends Model
         'description',
         'start_date',
         'end_date',
-        'location_id',
+        'location_address1',
+        'location_address2',
+        'location_street',
+        'location_city',
+        'location_state',
+        'location_country',
         'created_by',
         'status',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'event_type_id'
     ];
 
     protected bool $allowEmptyInserts = false;
