@@ -35,3 +35,6 @@ $routes->post('/event/create', [EventController::class,'create']);
 $routes->get('/event/edit/(:num)', [EventController::class, 'edit/$1'], ['filter' => 'auth']);
 $routes->put('/event/update', [EventController::class, 'update']);
 $routes->delete('/event/delete/(:num)', [EventController::class, 'delete/$1']);
+
+
+$routes->get('images/showImage/(:any)', 'UtilityController::showuserprofileimage/$1');

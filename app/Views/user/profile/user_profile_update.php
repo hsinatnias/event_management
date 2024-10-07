@@ -5,7 +5,7 @@
 <main class="form-signin w-100 m-auto">
     <div class="row justify-content-md-center">
         <div class="col-3">
-            <form class="row" action="<?= url_to('edit-profile') ?>" method="post">
+            <form class="row" action="<?= url_to('edit-profile') ?>" method="post" enctype="multipart/form-data">
 
                 <input type="hidden" name="_method" value="PATCH">
 
@@ -47,6 +47,13 @@
                         echo set_value('email');
                     else
                         echo session()->get('email'); ?>" autofocus>
+
+                </div>
+
+                <div class="col-12">
+                    <label for="uploaded_fileinfo" class="form-label">Profile Image</label>
+
+                    <input class="form-control form-control-lg" id="uploaded_fileinfo" name="uploaded_fileinfo" type="file">
 
                 </div>
 
