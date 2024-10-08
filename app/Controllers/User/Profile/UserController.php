@@ -8,6 +8,7 @@ use CodeIgniter\Database\RawSql;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Controllers\User\Auth\SessionController;
+use App\Validation\Custom_Validation;
 
 class UserController extends BaseController
 {
@@ -24,19 +25,25 @@ class UserController extends BaseController
 
     public function register()
     {
+        $validation = new Custom_Validation();
 
         helper(['form']);
 
-        $rules = [
-            'username'          => 'required|min_length[2]|max_length[50]|alpha_numeric_punct',
-            'email'             => 'required|min_length[4]|max_length[100]|valid_email|is_unique[users.email]',
-            'password'          => 'required|min_length[4]|max_length[50]',
-            'confirmpassword'   => 'matches[password]'
+        $data = [
+            'username' => $this->request->getVar('username'),
+            'email' => $this->request->getVar('email'),
+            'password' => $this->request->getVar('password'),
+            'confirmpassword' => $this->request->getVar('confirmpassword'),
         ];
+        
 
-        if ($this->validate($rules)) {
+        if(!$this->validateData($data, $validation->signup))
+        {
+            $data['validation'] = $this->validator;
+            return view('user/profile/register', $data);
+        }
             $user = new UserModel();
-
+            unset($data);
             $data = [
                 'username' => $this->request->getVar('username'),
                 'email' => $this->request->getVar('email'),
@@ -51,10 +58,9 @@ class UserController extends BaseController
             $authSession->set_session($data);
 
             return redirect()->to('/profile');
-        } else {
-            $data['validation'] = $this->validator;
-            echo view('user/profile/register', $data);
-        }
+
+        
+      
 
     }
 }

@@ -20,6 +20,7 @@ class UserProfileModel extends Model
         'phone_number',
         'loginTime',
         'created_at',
+        'avatar'
     ];
 
     protected bool $allowEmptyInserts = false;

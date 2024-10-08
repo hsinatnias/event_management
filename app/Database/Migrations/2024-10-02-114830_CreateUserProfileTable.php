@@ -34,6 +34,10 @@ class CreateUserProfileTable extends Migration
                 "constraint"=> ["active", "dormant", "preaproved"],
                 "default"=> "preaproved"
             ],
+            "avatar" => [
+                "type" => "VARCHAR",
+                "constraint"=> 255, 
+            ],
             "phone_number" =>[
                 "type" => "VARCHAR",
                 "constraint" => 50

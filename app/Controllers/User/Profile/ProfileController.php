@@ -2,11 +2,13 @@
 
 namespace App\Controllers\User\Profile;
 
+use Config\Validation;
 use App\Models\UserModel;
 use App\Models\UserProfileModel;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Controllers\User\Auth\SessionController;
+use App\Validation\Custom_Validation;
 
 class ProfileController extends BaseController
 {
@@ -60,32 +62,26 @@ class ProfileController extends BaseController
     public function create()
     {
         $user = new UserProfileModel();
+        $validation = new Custom_Validation();
+
 
         helper(['form']);
-        $rules = [
-            'firstname' => 'required|min_length[2]|max_length[50]',
-            'lastname' => 'required|min_length[2]|max_length[50]',            
-            'phone_number' => 'required|regex_match[/^[0-9]{10}$/]',
+      
+        $data = [
+            'user_id' => session()->get('user_id'),
+            'firstname' => $this->request->getVar('firstname'),
+            'lastname' => $this->request->getVar('lastname'),
+            'phone_number' => $this->request->getVar('phone_number'),
         ];
 
-        if ($this->validate($rules)) {
-
-
-            $data = [
-                'user_id' => session()->get('user_id'),
-                'firstname' => $this->request->getVar('firstname'),
-                'lastname' => $this->request->getVar('lastname'),
-                'phone_number' => $this->request->getVar('phone_number'),
-            ];
-
-            $user->where('user_id', session()->get('user_id'))->insert($data);
-
-
-            return redirect()->to('/profile');
-        } else {
+        if (!$this->validateData($data, $validation->userprofile_save)) {
             $data['validation'] = $this->validator;
-            echo view('user/profile/register', $data);
+            return view('user/profile/register', $data);
         }
+        
+        $user->where('user_id', session()->get('user_id'))->insert($data);
+        return redirect()->to('/profile');
+       
     }
     public function update()
     {
@@ -95,6 +91,7 @@ class ProfileController extends BaseController
             'lastname' => 'required|min_length[2]|max_length[50]',
             'phone_number' => 'required|regex_match[/^[0-9]{10}$/]',
             'email' => 'required|min_length[4]|max_length[100]|valid_email|is_unique[users.email]',
+            'avatar' => 'required',
         ];
 
         if ($this->validate($rules)) {

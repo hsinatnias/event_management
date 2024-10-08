@@ -6,7 +6,7 @@
     <div class="row justify-content-md-center">
         <div class="col-3">
 
-            <form class="row" action="<?= url_to('create-profile') ?>" method="post">
+            <form class="row" action="<?= url_to('create-profile') ?>" method="post" enctype="multipart/form-data">
 
                 <h3 class="has-text-centered">Edit User Profile <?= session()->get('username') ?></h3>
 
