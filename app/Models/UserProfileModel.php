@@ -21,6 +21,7 @@ class UserProfileModel extends Model
         'uploaded_fileinfo',
         'loginTime',
         'created_at',
+        'avatar'
     ];
 
     protected bool $allowEmptyInserts = false;
