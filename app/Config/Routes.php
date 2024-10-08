@@ -1,10 +1,11 @@
 <?php
 
-use App\Controllers\User\Auth\AuthController;
-use App\Controllers\User\Event\EventController;
-use App\Controllers\User\Profile\ProfileController;
-use App\Controllers\User\Profile\UserController;
 use CodeIgniter\Router\RouteCollection;
+use App\Controllers\User\Auth\AuthController;
+use App\Controllers\Utility\UtilityController;
+use App\Controllers\User\Event\EventController;
+use App\Controllers\User\Profile\UserController;
+use App\Controllers\User\Profile\ProfileController;
 
 /**
  * @var RouteCollection $routes
@@ -33,5 +34,11 @@ $routes->get('/events/(:num)', [EventController::class, 'show/$1'], ['filter' =>
 $routes->get('/event/create', [EventController::class,'new'],  ['as'=>'create-event', 'filter' => 'auth']);
 $routes->post('/event/create', [EventController::class,'create']);
 $routes->get('/event/edit/(:num)', [EventController::class, 'edit/$1'], ['filter' => 'auth']);
+
 $routes->put('/event/update/(:num)', [EventController::class, 'update/$1']);
 $routes->get('/event/delete/(:num)', [EventController::class, 'delete/$1']);
+
+
+
+$routes->get('images/showImage/(:any)', [UtilityController::class, 'showuserprofileimage/$1'], ['filter' => 'auth']);
+

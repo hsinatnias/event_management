@@ -2,8 +2,8 @@
 
 namespace App\Controllers\User\Profile;
 
-use Config\Validation;
 use App\Models\UserModel;
+use CodeIgniter\Files\File;
 use App\Models\UserProfileModel;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -12,21 +12,25 @@ use App\Validation\Custom_Validation;
 
 class ProfileController extends BaseController
 {
+    protected $custom_validation;
     protected $db;
-
+    protected $userProfileModel ;
     public function __construct()
     {
+        $this->custom_validation = new Custom_Validation();
         $this->db = \Config\Database::connect();
+        $this->userProfileModel = new UserProfileModel();
+        helper(['form']);
     }
+
+
     public function index()
     {
 
-        $userProfileModel = new UserProfileModel();
-
-        $userDetails = $userProfileModel->where("user_id", session()->get("user_id"))->first();
+        $userDetails = $this->userProfileModel->where("user_id", session()->get("user_id"))->first();
 
         if (!$userDetails) {
-            helper(['form']);
+            
             return redirect()->to("/create-profile");
         }
 
@@ -44,81 +48,80 @@ class ProfileController extends BaseController
     public function edit_profile_view()
     {
 
-        helper(['form']);
+        
         return view('user/profile/user_profile_edit');
 
     }
     public function update_profile_view()
-    {
-        helper(['form']);
-        $user = new UserProfileModel();
-        $data['userdata'] = $user->where('user_id', session()->get('user_id'))->first();
-
-        helper(['form']);
+    {        
+        
+        $data['userdata'] = $this->userProfileModel->where('user_id', session()->get('user_id'))->first();
+        
         return view('user/profile/user_profile_update', $data);
 
     }
 
     public function create()
-    {
-        $user = new UserProfileModel();
-        $validation = new Custom_Validation();
-
-
-        helper(['form']);
-
+    {        
+        
         $data = [
-            'user_id' => session()->get('user_id'),
-            'firstname' => $this->request->getVar('firstname'),
-            'lastname' => $this->request->getVar('lastname'),
-            'phone_number' => $this->request->getVar('phone_number'),
+            'firstname'     => $this->request->getVar('firstname'),
+            'lastname'      => $this->request->getVar('lastname'),
+            'phone_number'  => $this->request->getVar('phone_number')
         ];
-
-        if (!$this->validateData($data, $validation->userprofile_save)) {
+        if (!$this->validateData($data, $this->custom_validation->userprofile_save)) {
             $data['validation'] = $this->validator;
-            return view('user/profile/register', $data);
+            return view('user/profile/user_profile_edit', $data);
         }
 
-        $user->where('user_id', session()->get('user_id'))->insert($data);
+
+        $img = $this->request->getFile('avatar');
+
+        if ($img->isValid() && !$img->hasMoved()) {
+            $file_name = $img->getRandomName();
+            $img->move(WRITEPATH.'uploads/profile_images',  $file_name  );        
+        }
+        $data['uploaded_fileinfo'] =  $file_name;
+        $data['user_id'] = session()->get('user_id');       
+
+        $this->userProfileModel->insert($data);
+
+
         return redirect()->to('/profile');
 
     }
     public function update()
-    {
-        helper(['form']);
+    {        
+     
+        $rules = $this->custom_validation->userprofile_update;
+        if ($this->validate($rules)) {            
 
-        $data = [
-            'user_id' => $this->request->getVar('user_id'),
-            'firstname' => $this->request->getVar('firstname'),
-            'lastname' => $this->request->getVar('lastname'),
-            'phone_number' => $this->request->getVar('phone_number'),
-            'email' => $this->request->getVar('email'),
-            'avatar' => $this->request->getFile('avatar'),
-        ];
+            $img = $this->request->getFile('avatar');
+            if ($img->isValid() && !$img->hasMoved()) {
 
-        $validation = new Custom_Validation();
-        
-        if (!$this->validateData($data, $validation->userprofile_update)) {
+                $file_name = $img->getRandomName();
+                $img->move(WRITEPATH.'uploads/profile_images',  $file_name  );    
+
+            }
+
+            $data = [                
+                'firstname' => $this->request->getVar('firstname'),
+                'lastname' => $this->request->getVar('lastname'),
+                'phone_number' => $this->request->getVar('phone_number'),
+                'uploaded_fileinfo' => $file_name
+            ];
+
+            $email = $this->request->getVar('email');
+            // $user->where('user_id', session()->get('user_id'))->update($data);
+            $this->userProfileModel->set($data)->where('user_id', session()->get('user_id'))->update();
+            $usermodel = new UserModel();
+            $usermodel->set('email', $email)->where('user_id', session()->get('user_id'))->update();
+
+            return redirect()->to('/profile');
+        } else {
+            $data['userdata'] = $this->userProfileModel->where('user_id', session()->get('user_id'))->first();
             $data['validation'] = $this->validator;
             echo view('user/profile/user_profile_update', $data);
         }
-
-        $user = new UserProfileModel();
-
-        $data = [
-
-            'firstname' => $this->request->getVar('firstname'),
-            'lastname' => $this->request->getVar('lastname'),
-            'phone_number' => $this->request->getVar('phone_number'),
-        ];
-        $email = $this->request->getVar('email');
-        // $user->where('user_id', session()->get('user_id'))->update($data);
-        $user->set($data)->where('user_id', session()->get('user_id'))->update();
-        $usermodel = new UserModel();
-        $usermodel->set('email', $email)->where('user_id', session()->get('user_id'))->update();
-
-
-        return redirect()->to('/profile');
-
     }
 }

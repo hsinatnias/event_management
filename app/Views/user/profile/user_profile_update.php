@@ -11,6 +11,7 @@
                 <input type="hidden" name="user_id" id="user_id" value="<?php if (set_value('user_id')) echo set_value('user_id'); else echo $userdata['user_id']; ?>">
 
                 <h3 class="has-text-centered">Edit User Profile <?= session()->get('username') ?></h3>
+                <input type="hidden" name="user_id" id="user_id" value="<?php if (set_value('user_id')) echo set_value('user_id'); else echo $userdata['user_id']; ?>">
 
                 <div  class="col-12">
                     <label for="firstname" class="form-label">First Name</label>
@@ -54,6 +55,13 @@
                     <label for="avatar" class="form-label">Profile Image</label>
 
                     <input class="form-control" type="file" name="avatar" id="avatar">
+
+                </div>
+
+                <div class="col-12">
+                    <label for="avatar" class="form-label">Profile Image</label>
+
+                    <input class="form-control form-control-lg" id="avatar" name="avatar" type="file">
 
                 </div>
 

@@ -4,10 +4,12 @@ namespace Config;
 
 use App\Validation\Custom_Validation;
 use CodeIgniter\Config\BaseConfig;
-use CodeIgniter\Validation\StrictRules\Rules;
 use CodeIgniter\Validation\StrictRules\FileRules;
 use CodeIgniter\Validation\StrictRules\FormatRules;
+use CodeIgniter\Validation\StrictRules\Rules;
 use CodeIgniter\Validation\StrictRules\CreditCardRules;
+
+
 
 class Validation extends BaseConfig
 {

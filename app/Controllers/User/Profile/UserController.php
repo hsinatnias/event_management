@@ -25,8 +25,8 @@ class UserController extends BaseController
 
     public function register()
     {
-        $validation = new Custom_Validation();
 
+        $validation = new Custom_Validation();
         helper(['form']);
 
         $data = [
@@ -35,32 +35,28 @@ class UserController extends BaseController
             'password' => $this->request->getVar('password'),
             'confirmpassword' => $this->request->getVar('confirmpassword'),
         ];
-        
 
-        if(!$this->validateData($data, $validation->signup))
-        {
+        if (!$this->validateData($data, $validation->signup)) {
             $data['validation'] = $this->validator;
             return view('user/profile/register', $data);
         }
-            $user = new UserModel();
-            unset($data);
-            $data = [
-                'username' => $this->request->getVar('username'),
-                'email' => $this->request->getVar('email'),
-                'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
-            ];
 
-            $user_id =  $user->insert($data, true);
-            $data['user_id']= $user_id;
-            
+        $user = new UserModel();
+        unset($data);
+        $data = [
+            'username' => $this->request->getVar('username'),
+            'email' => $this->request->getVar('email'),
+            'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
+        ];
 
-            $authSession = new SessionController();
-            $authSession->set_session($data);
+        $user_id = $user->insert($data, true);
+        $data['user_id'] = $user_id;
 
-            return redirect()->to('/profile');
 
-        
-      
+        $authSession = new SessionController();
+        $authSession->set_session($data);
+
+        return redirect()->to('/profile');
 
     }
 }

@@ -34,9 +34,9 @@ class CreateUserProfileTable extends Migration
                 "constraint"=> ["active", "dormant", "preaproved"],
                 "default"=> "preaproved"
             ],
-            "avatar" => [
+            "uploaded_fileinfo"=>[
                 "type" => "VARCHAR",
-                "constraint"=> 255, 
+                "constraint"=> 255,  
             ],
             "phone_number" =>[
                 "type" => "VARCHAR",
