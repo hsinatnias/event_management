@@ -8,7 +8,7 @@
     <div class="col-md-9">
         <div class="row">
             <div class="col-md-3">
-            <img src="<?= base_url('images/showImage/' . $result->uploaded_fileinfo) ?>" alt="Image">
+            <img class="img-thumbnail" src="<?= base_url('images/showImage/' . $result->uploaded_fileinfo) ?>" alt="Profile Image"  >
             
             </div>
             <div class="col-md-9">
