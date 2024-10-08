@@ -16,7 +16,7 @@ class ProfileController extends BaseController
 
     public function __construct()
     {
-        $this->db   = \Config\Database::connect();
+        $this->db = \Config\Database::connect();
     }
     public function index()
     {
@@ -29,21 +29,21 @@ class ProfileController extends BaseController
             helper(['form']);
             return redirect()->to("/create-profile");
         }
-        
+
         $builder = $this->db->table("users");
-        $builder->select("*")                
-                ->join('userprofiles', 'userprofiles.user_id = users.user_id')
-                ->where('users.user_id', session()->get('user_id'));
+        $builder->select("*")
+            ->join('userprofiles', 'userprofiles.user_id = users.user_id')
+            ->where('users.user_id', session()->get('user_id'));
         $query = $builder->get();
         $data['result'] = $query->getFirstRow();
-        
+
 
         return view("user/profile/profile", $data);
     }
 
     public function edit_profile_view()
     {
-        
+
         helper(['form']);
         return view('user/profile/user_profile_edit');
 
@@ -53,7 +53,7 @@ class ProfileController extends BaseController
         helper(['form']);
         $user = new UserProfileModel();
         $data['userdata'] = $user->where('user_id', session()->get('user_id'))->first();
-        
+
         helper(['form']);
         return view('user/profile/user_profile_update', $data);
 
@@ -66,7 +66,7 @@ class ProfileController extends BaseController
 
 
         helper(['form']);
-      
+
         $data = [
             'user_id' => session()->get('user_id'),
             'firstname' => $this->request->getVar('firstname'),
@@ -78,42 +78,47 @@ class ProfileController extends BaseController
             $data['validation'] = $this->validator;
             return view('user/profile/register', $data);
         }
-        
+
         $user->where('user_id', session()->get('user_id'))->insert($data);
         return redirect()->to('/profile');
-       
+
     }
     public function update()
     {
         helper(['form']);
-        $rules = [
-            'firstname' => 'required|min_length[2]|max_length[50]',
-            'lastname' => 'required|min_length[2]|max_length[50]',
-            'phone_number' => 'required|regex_match[/^[0-9]{10}$/]',
-            'email' => 'required|min_length[4]|max_length[100]|valid_email|is_unique[users.email]',
-            'avatar' => 'required',
+
+        $data = [
+            'user_id' => $this->request->getVar('user_id'),
+            'firstname' => $this->request->getVar('firstname'),
+            'lastname' => $this->request->getVar('lastname'),
+            'phone_number' => $this->request->getVar('phone_number'),
+            'email' => $this->request->getVar('email'),
+            'avatar' => $this->request->getFile('avatar'),
         ];
 
-        if ($this->validate($rules)) {
-            $user = new UserProfileModel();
-
-            $data = [
-                
-                'firstname' => $this->request->getVar('firstname'),
-                'lastname' => $this->request->getVar('lastname'),
-                'phone_number' => $this->request->getVar('phone_number'),
-            ];
-            $email = $this->request->getVar('email');
-            // $user->where('user_id', session()->get('user_id'))->update($data);
-            $user->set($data)->where('user_id', session()->get('user_id'))->update();
-            $usermodel = new UserModel();
-            $usermodel->set('email', $email)->where('id', session()->get('user_id'))->update();
-
-
-            return redirect()->to('/profile');
-        } else {
+        $validation = new Custom_Validation();
+        
+        if (!$this->validateData($data, $validation->userprofile_update)) {
             $data['validation'] = $this->validator;
             echo view('user/profile/user_profile_update', $data);
         }
+
+        $user = new UserProfileModel();
+
+        $data = [
+
+            'firstname' => $this->request->getVar('firstname'),
+            'lastname' => $this->request->getVar('lastname'),
+            'phone_number' => $this->request->getVar('phone_number'),
+        ];
+        $email = $this->request->getVar('email');
+        // $user->where('user_id', session()->get('user_id'))->update($data);
+        $user->set($data)->where('user_id', session()->get('user_id'))->update();
+        $usermodel = new UserModel();
+        $usermodel->set('email', $email)->where('user_id', session()->get('user_id'))->update();
+
+
+        return redirect()->to('/profile');
+
     }
 }

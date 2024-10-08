@@ -8,6 +8,7 @@
             <form class="row" action="<?= url_to('edit-profile') ?>" method="post" enctype="multipart/form-data">
 
                 <input type="hidden" name="_method" value="PATCH">
+                <input type="hidden" name="user_id" id="user_id" value="<?php if (set_value('user_id')) echo set_value('user_id'); else echo $userdata['user_id']; ?>">
 
                 <h3 class="has-text-centered">Edit User Profile <?= session()->get('username') ?></h3>
 
