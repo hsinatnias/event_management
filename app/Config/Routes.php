@@ -5,6 +5,7 @@ use App\Controllers\User\Auth\AuthController;
 use App\Controllers\Utility\UtilityController;
 use App\Controllers\User\Event\EventController;
 use App\Controllers\User\Profile\UserController;
+use App\Controllers\Admin\Auth\AdminAuthController;
 use App\Controllers\User\Profile\ProfileController;
 
 /**
@@ -41,4 +42,10 @@ $routes->get('/event/delete/(:num)', [EventController::class, 'delete/$1']);
 
 
 $routes->get('images/showImage/(:any)', [UtilityController::class, 'showuserprofileimage/$1'], ['filter' => 'auth']);
+
+
+
+//Admin section
+
+$routes->get('/admin', [AdminAuthController::class, 'index']);
 

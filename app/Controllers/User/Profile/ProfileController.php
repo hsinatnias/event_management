@@ -15,11 +15,13 @@ class ProfileController extends BaseController
     protected $custom_validation;
     protected $db;
     protected $userProfileModel ;
+    protected $sessionController;
     public function __construct()
     {
         $this->custom_validation = new Custom_Validation();
         $this->db = \Config\Database::connect();
         $this->userProfileModel = new UserProfileModel();
+        $this->sessionController = new SessionController();
         helper(['form']);
     }
 
@@ -47,13 +49,19 @@ class ProfileController extends BaseController
 
     public function edit_profile_view()
     {
-
         
         return view('user/profile/user_profile_edit');
 
     }
     public function update_profile_view()
     {        
+        $builder = $this->db->table("users");
+        $builder->select("*")
+            ->join('userprofiles', 'userprofiles.user_id = users.user_id')
+            ->where('users.user_id', session()->get('user_id'));
+        $query = $builder->get();
+        $data['result'] = $query->getFirstRow();
+        
         
         $data['userdata'] = $this->userProfileModel->where('user_id', session()->get('user_id'))->first();
         
@@ -85,6 +93,8 @@ class ProfileController extends BaseController
         $data['user_id'] = session()->get('user_id');       
 
         $this->userProfileModel->insert($data);
+        $this->sessionController->set_specific('uploaded_fileinfo', $file_name);
+
 
 
         return redirect()->to('/profile');
@@ -116,7 +126,8 @@ class ProfileController extends BaseController
             $this->userProfileModel->set($data)->where('user_id', session()->get('user_id'))->update();
             $usermodel = new UserModel();
             $usermodel->set('email', $email)->where('user_id', session()->get('user_id'))->update();
-
+            
+            $this->sessionController->set_specific('uploaded_fileinfo', $file_name);
             return redirect()->to('/profile');
         } else {
             $data['userdata'] = $this->userProfileModel->where('user_id', session()->get('user_id'))->first();

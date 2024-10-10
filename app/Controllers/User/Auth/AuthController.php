@@ -9,6 +9,12 @@ use App\Controllers\User\Auth\SessionController;
 
 class AuthController extends BaseController
 {
+
+    protected $db;
+
+    public function __construct(){
+        $this->db = \Config\Database::connect();
+    }
     /**
      * display authentication/Login  form
      * @return void
@@ -29,6 +35,15 @@ class AuthController extends BaseController
 
         $user = new UserModel();
         $data = $user->where('email', $email)->first();
+
+        $builder = $this->db->table("users");
+        $builder->select("*")
+            ->join('userprofiles', 'userprofiles.user_id = users.user_id')
+            ->where('users.email', $email);
+        $query = $builder->get();
+        $data = $query->getFirstRow();
+
+
 
         if($data){
             $pass = $data['password'];
