@@ -26,7 +26,7 @@ class AuthController extends BaseController
     }
     /**
      * Make user login with values from login form
-     * @return void
+     * 
      */
     public function login()
     {
@@ -36,12 +36,12 @@ class AuthController extends BaseController
         $user = new UserModel();
         $data = $user->where('email', $email)->first();
 
-        $builder = $this->db->table("users");
-        $builder->select("*")
-            ->join('userprofiles', 'userprofiles.user_id = users.user_id')
-            ->where('users.email', $email);
-        $query = $builder->get();
-        $data = $query->getFirstRow();
+        // $builder = $this->db->table("users");
+        // $builder->select("*")
+        //     ->join('userprofiles', 'userprofiles.user_id = users.user_id')
+        //     ->where('users.email', $email);
+        // $query = $builder->get();
+        // $data = $query->getFirstRow();
 
 
 
@@ -51,7 +51,7 @@ class AuthController extends BaseController
             if($athenticatePassword){
                 $authSession = new SessionController();
                 $authSession->set_session($data);
-                return redirect()->route('/');
+                return redirect()->route('dashboard');
             }else{
                 session()->setFlashdata('msg', 'Password is incorrect');
                 return redirect()->back()->withInput();

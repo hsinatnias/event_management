@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\User\DashboardController;
 use CodeIgniter\Router\RouteCollection;
 use App\Controllers\User\Auth\AuthController;
 use App\Controllers\Utility\UtilityController;
@@ -12,6 +13,7 @@ use App\Controllers\User\Profile\ProfileController;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
+$routes->get('/dashboard',[DashboardController::class,'index'], ['filter' => 'auth']);
 
 $routes->get('/login', [AuthController::class, 'index'], ['filter' => 'noauth']);
 $routes->post('/login', [AuthController::class, 'login']);
@@ -47,5 +49,7 @@ $routes->get('images/showImage/(:any)', [UtilityController::class, 'showuserprof
 
 //Admin section
 
-$routes->get('/admin', [AdminAuthController::class, 'index']);
+$routes->get('admin', [AdminAuthController::class, 'index']);
+$routes->get('admin/password_reset', [AdminAuthController::class,'password_reset']);
+$routes->get('admin/getResetPasswordForm', [AdminAuthController::class,'login_html']);
 
